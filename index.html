@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>LanChat</title>
+    <style>
+        #footer {
+            /* ... 其他样式 ... */
+            color: white; /* 设置文字颜色为白色 */
+        }
+        body {
+            margin: 0;
+            padding: 0;
+            background-image: url('background.png');
+            background-size: cover;
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        #chat-container {
+            background-color: rgba(255, 255, 255, 0.25);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            max-width: 1500px; /* 宽聊天信息部分 */
+            width: 80%;
+            overflow-y: scroll;
+            height: 70vh;
+            margin-bottom: 10px;
+        }
+
+        #message {
+            width: 81%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+
+        #send {
+            padding: 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            float: right; /* 发送按钮位于右侧 */
+        }
+    </style>
+</head>
+<body>
+
+    <div id="chat-container">
+        <div id="chat-box"></div>
+    </div>
+    <input type="text" id="message" placeholder="Input your message...">
+    <button id="send">Send</button>
+
+    <div id="footer">
+        <p>This page is just an example, if you want to develop it, please visit my <a href="https://github.com" target="_blank">GitHub</a> home page.</p>
+        <p><a href="donation.png" target="_blank">Buy me a coffee</a></p>
+    </div>
+
+    <script>
+        const chatBox = document.getElementById('chat-box');
+        const messageInput = document.getElementById('message');
+        const sendButton = document.getElementById('send');
+
+        sendButton.addEventListener('click', () => {
+            const message = messageInput.value;
+            if (message.trim() !== '') {
+                displayMessage('Me', message);
+                messageInput.value = '';
+                // 在这里添加发送消息到局域网的逻辑（可能需要WebSocket或其他通信方式）
+            }
+        });
+
+        // 模拟收到消息
+        function receiveMessage(sender, message) {
+            displayMessage(sender, message);
+        }
+
+        // 在聊天框中显示消息
+        function displayMessage(sender, message) {
+            const messageElement = document.createElement('div');
+            messageElement.innerHTML = `<strong>${sender}:</strong> ${message}`;
+            chatBox.appendChild(messageElement);
+            chatBox.scrollTop = chatBox.scrollHeight;
+        }
+    </script>
+</body>
+</html>
